@@ -376,11 +376,15 @@ section h2 {
   font-size: 0.9375rem;
   font-weight: 500;
   background: var(--bg);
-  transition: border-color 0.15s, background 0.15s;
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .contact-links a {
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+  }
+
   .contact-links a:hover {
     border-color: var(--accent);
     background: var(--accent-soft);
@@ -388,10 +392,20 @@ section h2 {
   }
 }
 
-.contact-links a:active {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-  color: var(--accent-dark);
+@media (hover: none), (pointer: coarse) {
+  .contact-links a:hover,
+  .contact-links a:focus,
+  .contact-links a:active {
+    border-color: var(--border);
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .contact-links a.is-pressed {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+  }
 }
 
 .contact-links a:focus {

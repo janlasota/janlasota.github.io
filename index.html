@@ -171,7 +171,23 @@
     });
 
     document.querySelectorAll('.contact-links a').forEach(function (link) {
-      link.addEventListener('click', function () {
+      function clearPress() {
+        link.classList.remove('is-pressed');
+        link.blur();
+      }
+
+      link.addEventListener('touchstart', function () {
+        link.classList.add('is-pressed');
+      }, { passive: true });
+
+      link.addEventListener('touchend', clearPress);
+      link.addEventListener('touchcancel', clearPress);
+      link.addEventListener('click', clearPress);
+    });
+
+    window.addEventListener('pageshow', function () {
+      document.querySelectorAll('.contact-links a').forEach(function (link) {
+        link.classList.remove('is-pressed');
         link.blur();
       });
     });
