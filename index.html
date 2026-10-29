@@ -76,6 +76,7 @@
               <div class="project-card-body">
                 <h3>Tramble</h3>
                 <p>Plan outfits day-by-day for your next trip. Live on the App Store.</p>
+                <ul class="tags"><li>React Native</li><li>Expo</li><li>Supabase</li></ul>
               </div>
             </a>
           </article>
@@ -88,6 +89,7 @@
               <div class="project-card-body">
                 <h3>Global Heartbeat</h3>
                 <p>An interactive globe of pulsing cities with live weather, flights, quakes and the night sky.</p>
+                <ul class="tags"><li>three.js</li><li>JavaScript</li><li>Vercel</li></ul>
               </div>
             </a>
           </article>
@@ -100,6 +102,7 @@
               <div class="project-card-body">
                 <h3>Marlins Tracker</h3>
                 <p>Daily schedules for the Miami Marlins and their affiliate teams.</p>
+                <ul class="tags"><li>React</li><li>TypeScript</li><li>Vite</li><li>Tailwind</li></ul>
               </div>
             </a>
           </article>
@@ -112,6 +115,7 @@
               <div class="project-card-body">
                 <h3>Food Fax</h3>
                 <p>Visualize and compare the nutrients in your food.</p>
+                <ul class="tags"><li>React</li><li>TypeScript</li><li>Recharts</li><li>Spoonacular API</li></ul>
               </div>
             </a>
           </article>
@@ -208,6 +212,49 @@
         link.blur();
       });
     });
+
+    // Scroll reveal and active nav link
+    (function () {
+      var root = document.documentElement;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var items = document.querySelectorAll(
+        '.about .container > *, #projects .container > .section-label, .project-card, .contact .container > *'
+      );
+
+      if (!reduce && 'IntersectionObserver' in window) {
+        root.classList.add('js-reveal');
+        items.forEach(function (el) {
+          el.classList.add('reveal');
+          var i = Array.prototype.indexOf.call(el.parentNode.children, el);
+          el.style.transitionDelay = (i * 100) + 'ms';
+        });
+        var revealIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            e.target.classList.toggle('is-visible', e.isIntersecting);
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        items.forEach(function (el) { revealIO.observe(el); });
+      }
+
+      if ('IntersectionObserver' in window) {
+        var navLinks = {};
+        document.querySelectorAll('.nav-links a').forEach(function (a) {
+          navLinks[a.getAttribute('href').slice(1)] = a;
+        });
+        var navIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            Object.keys(navLinks).forEach(function (id) {
+              navLinks[id].classList.toggle('is-active', id === e.target.id);
+            });
+          });
+        }, { rootMargin: '-40% 0px -55% 0px' });
+        Object.keys(navLinks).forEach(function (id) {
+          var s = document.getElementById(id);
+          if (s) navIO.observe(s);
+        });
+      }
+    })();
   </script>
 
 </body>

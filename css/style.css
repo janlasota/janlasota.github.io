@@ -430,3 +430,122 @@ section h2 {
   color: var(--text-muted);
   border-top: 1px solid var(--border);
 }
+
+/* Tags */
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  list-style: none;
+  margin: 0.875rem 0 0;
+  padding: 0;
+}
+
+.tags li {
+  padding: 0.125rem 0.625rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Project card hover */
+
+.project-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(28, 25, 23, 0.1), 0 24px 48px rgba(28, 25, 23, 0.1);
+}
+
+.project-card-visual img {
+  transition: transform 0.6s ease;
+}
+
+.project-card:hover .project-card-visual img {
+  transform: scale(1.05);
+}
+
+.project-card-body h3::after {
+  content: "\2197";
+  display: inline-block;
+  margin-left: 0.25rem;
+  color: var(--accent);
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.project-card:hover .project-card-body h3::after {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* Active nav link */
+
+.nav-links a {
+  transition: color 0.15s;
+}
+
+.nav-links a.is-active {
+  color: var(--accent);
+}
+
+/* Hero entrance */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-photo,
+.hero h1,
+.hero .tagline,
+.hero-actions {
+  animation: fade-up 0.7s ease both;
+}
+
+.hero h1 { animation-delay: 0.1s; }
+.hero .tagline { animation-delay: 0.2s; }
+.hero-actions { animation-delay: 0.3s; }
+
+/* Scroll reveal (only active when JS adds .js-reveal) */
+
+.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.25s ease;
+}
+
+.js-reveal .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.js-reveal .project-card.reveal.is-visible:hover {
+  transform: translateY(-6px);
+  transition-delay: 0s !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
